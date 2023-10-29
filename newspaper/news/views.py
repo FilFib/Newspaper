@@ -1,6 +1,6 @@
 from .models import Article
 from .serializers import ArticleSerializer, UserSerializer
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from django.contrib.auth.models import User
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.views import APIView
@@ -14,6 +14,8 @@ class ListCreateArticles(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     pagination_class = ArticlePaginator
+    filter_backends = [filters.OrderingFilter]
+    ordering = ['-date']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

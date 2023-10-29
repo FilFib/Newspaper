@@ -17,6 +17,8 @@ class Article(models.Model):
         return f'{self.owner} | {self.title}'
 
 
+# adding a token when creating a user
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_authtoken(sender, **kwargs):
     if kwargs['created']:

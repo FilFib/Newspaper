@@ -8,6 +8,7 @@ urlpatterns = [
     path('articles/<int:pk>/', views.ArticleDetails.as_view(), name='article_detail'),
     path('users/', views.ListCreateUsers.as_view(), name = 'users'),
     path('get-token/', obtain_auth_token),
+    path('', views.APIRoot.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

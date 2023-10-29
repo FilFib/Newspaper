@@ -14,12 +14,14 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    articles = serializers.PrimaryKeyRelatedField(
-        queryset=Article.objects.all(), many=True)
+    # articles = serializers.PrimaryKeyRelatedField(
+    #   queryset=Article.objects.all(), many=True)
+    #articles = serializers.StringRelatedField(many=True) # diffrent options 
+    articles = serializers.HyperlinkedRelatedField(many=True, queryset=Article.objects.all(), view_name='article_detail')
     email = serializers.EmailField(required=False, validators=[
         UniqueValidator(
-            queryset = User.objects.all(),
-            message = "A user with that email already exists."
+            queryset=User.objects.all(),
+            message="A user with that email already exists."
         )
     ])
     

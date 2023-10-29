@@ -6,12 +6,14 @@ from .permissions import IsOwnerOrReadOnly
 from rest_framework.views import APIView
 from rest_framework.reverse import reverse
 from rest_framework.response import Response
+from .paginators import ArticlePaginator
 
 """Concrete View Classes"""
 
-class ListCreateArticcles(generics.ListCreateAPIView):
+class ListCreateArticles(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    pagination_class = ArticlePaginator
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
